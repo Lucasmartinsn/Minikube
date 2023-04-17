@@ -1,0 +1,35 @@
+#Existe diversas verções olhar a documentação para ver qual é a mas ideal para o projeto.
+#verção de utilização do recurso.
+apiVersion: apps/v1
+
+#Aqui define um tipo do arquivo 
+kind: Deployment
+
+#Define um nome para o arquivo
+metadata: 
+  name: flask-app-deployment
+  labels:
+    app: flask-app
+
+#Especificações do projeto
+spec: 
+  replicas: 3   # numero de replicas(pods)
+  
+  selector: # selecionara um das tres replicas
+    # a replica selecionada vai receber um nome
+    matchLabels: # define um nome
+      app: flask-app
+  
+  template: # define como a replica vai rodar
+    #define para quem vai ser epregadas as regras
+    metadata:
+      labels:
+        app: flask-app
+
+    # aqui define que no pod vai ter um conteiner
+    spec:
+      containers:
+        - name: flask
+          image: lucasmartinsnara/flask-kub-projeto:v3
+          #ports:
+          #  - containerPort: 5000
